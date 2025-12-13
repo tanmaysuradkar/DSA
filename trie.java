@@ -21,7 +21,6 @@ public class trie {
 
             if (curr.children[idx] == null) {
                 curr.children[idx] = new Node();
-                System.out.println(curr.children[idx] + " " + idx);
             }
             if (i == word.length() - 1) {
                 curr.children[idx].eow = true;
@@ -47,6 +46,19 @@ public class trie {
         return true;
     }
 
+    public static boolean startwith(String prifix) {
+        Node curr = root;
+        for (int i = 0; i < prifix.length(); i++) {
+            int idx = prifix.charAt(i) - 'a';
+            Node node = curr.children[idx];
+            if (node == null) {
+                return false;
+            }
+            curr = curr.children[idx];
+        }
+        return true;
+    }
+
     public static boolean wordBreak(String keys) {
         if (keys.length() == 0) {
             return true;
@@ -61,16 +73,44 @@ public class trie {
         return false;
     }
 
-    public static void main(String[] args) {
-        String word[] = { "i", "like", "sam", "sung", "ice" };
-        String keys = "ilikesamsung";
-        for (int i = 0; i < word.length; i++) {
-            insert(word[i]);
+    public static int NodeCount(Node root) {
+        if (root == null) {
+            return 0;
         }
-        System.out.println(wordBreak(keys));
-        System.out.println(search("i"));
-        System.out.println(search("like"));
-        System.out.println(search("sam"));
-        System.out.println(search("sung"));
+        int count = 0;
+        for (int i = 0; i < 26; i++) {
+            count += NodeCount(root.children[i]);
+        }
+        return count + 1;
+    }
+
+    public static String ans = "";
+
+    public static void logestpath(Node root, StringBuilder temp) {
+        if (root == null) {
+            return;
+        }
+        for (int i = 0; i < 26; i++) {
+            if (root.children[i] != null && root.children[i].eow == true) {
+                temp.append((char) (i + 'a'));
+                if (temp.length() > ans.length()) {
+                    ans = temp.toString();
+                }
+                logestpath(root.children[i], temp);
+                temp.deleteCharAt(temp.length() - 1);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String word2[] = { "a", "banana", "app", "appl", "ap", "apple" };
+        String word[] = { "i", "like", "sam", "samsung", "ice" };
+        String keys = "ilikesamsung";
+        String suffix = "apple";
+        for (int i = 0; i < word2.length; i++) {
+            insert(word2[i]);
+        }
+        logestpath(root, new StringBuilder(""));
+        System.out.println(ans);
     }
 }
