@@ -45,7 +45,7 @@ public class graphWithBFS {
         graph[7].add(new Edge(7, 6, 0));
     }
 
-    public static void bst(ArrayList<Edge> graph[], int v, boolean vis[], int start) {
+    public static void bfs(ArrayList<Edge> graph[], int v, boolean vis[], int start) {
         Queue<Integer> q = new LinkedList<>();
         q.add(start);
         while (!q.isEmpty()) {
@@ -68,7 +68,7 @@ public class graphWithBFS {
         boolean vis[] = new boolean[v];
         for (int i = 0; i < graph.length; i++) {
             if (vis[i] == false) {
-                bst(graph, v, vis, i);
+                bfs(graph, v, vis, i);
             }
         }
     }

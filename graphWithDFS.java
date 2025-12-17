@@ -43,14 +43,23 @@ public class graphWithDFS {
         graph[7].add(new Edge(7, 6, 0));
     }
 
-    public static void dfs() {
-
+    public static void dfs(ArrayList<Edge> graph[], boolean vis[], int curr) {
+        System.out.print(curr + " ");
+        vis[curr] = true;
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (vis[e.dest] == false)
+                dfs(graph, vis, e.dest);
+        }
     }
 
     public static void main(String args[]) {
         int v = 8;
+        boolean vis[] = new boolean[v];
         ArrayList<Edge> graph[] = new ArrayList[v];
         createGraph(graph);
-        dfs();
+        for (int i = 0; i < v; i++)
+            if (vis[i] == false)
+                dfs(graph, vis, i);
     }
 }
