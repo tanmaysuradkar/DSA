@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 
-public class graphQ1 {
+public class graphQ1PrintAllPath {
     public static class Edge {
         int scr;
         int dest;

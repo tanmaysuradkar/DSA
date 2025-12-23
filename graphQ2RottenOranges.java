@@ -18,7 +18,6 @@ public class graphQ2RottenOranges {
     public static int rottenOranges(int orang[][]) {
         int n = orang.length;
         int m = orang[0].length;
-        System.out.println("vis size testing " + n + " " + m);
         int ans = 0;
         boolean vis[][] = new boolean[n][m];
         Queue<Matrix> q = new LinkedList<>();
@@ -36,7 +35,6 @@ public class graphQ2RottenOranges {
         while (!q.isEmpty()) {
             Matrix curr = q.poll();
             ans = Math.max(ans, curr.time);
-
             for (int d = 0; d < 4; d++) {
                 int ni = curr.i + dx[d];
                 int nj = curr.j + dy[d];
